@@ -1,4 +1,4 @@
-// Conexão e Regras de Negócio com a API do OpenRouter
+// Conexão e Regras de Negócio com a API do Groq
 const ApiService = {
     // Prompt de Sistema rígido, atuando na governança clínica do Agente
     systemPrompt: `Você é Urbanovichi. Você trabalha na Clínica Urbanovichi. Seu objetivo é oferecer atendimento acolhedor, educado, humanizado e profissional.
@@ -11,7 +11,7 @@ Sempre fale em português do Brasil. Utilize linguagem humanizada, clara, acolhe
         const settings = Config.get();
         
         if (!settings.openRouterKey) {
-            throw new Error("Chave de API do OpenRouter ausente. Por favor, configure nas configurações do sistema.");
+            throw new Error("Chave de API do Groq ausente. Por favor, adicione-a nas configurações do sistema.");
         }
 
         // Montagem do payload incluindo histórico para manutenção de contexto
@@ -21,19 +21,19 @@ Sempre fale em português do Brasil. Utilize linguagem humanizada, clara, acolhe
         ];
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // Timeout de 30 segundos
+        const timeoutId = setTimeout(() => controller.abort(), 20000); // Timeout de 20 segundos para o Groq
 
         try {
-            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            // Alterado para o endpoint oficial do Groq
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${settings.openRouterKey}`,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": window.location.origin,
-                    "X-Title": settings.clinicName
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: settings.aiModel,
+                    // Força um modelo rápido do Groq caso o usuário não mude nas configurações
+                    model: settings.aiModel.includes("/") ? "llama-3.3-70b-versatile" : settings.aiModel,
                     messages: messages,
                     temperature: 0.5
                 }),
@@ -57,7 +57,7 @@ Sempre fale em português do Brasil. Utilize linguagem humanizada, clara, acolhe
         } catch (error) {
             clearTimeout(timeoutId);
             if (error.name === 'AbortError') {
-                throw new Error("O servidor demorou muito para responder. Tente novamente.");
+                throw new Error("O servidor da Groq demorou para responder. Tente novamente.");
             }
             throw error;
         }
