@@ -1,0 +1,355 @@
+:root {
+    --bg-main: #f4f7fa;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --border-color: rgba(226, 232, 240, 0.8);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --dark-blue: #0f172a;
+    --primary-color: #0284c7;
+    --primary-hover: #0369a1;
+    --bubble-user: #e0f2fe;
+    --bubble-ai: #ffffff;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+}
+
+[data-bs-theme="dark"] {
+    --bg-main: #0b0f19;
+    --card-bg: rgba(22, 28, 45, 0.9);
+    --border-color: rgba(51, 65, 85, 0.5);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --dark-blue: #f1f5f9;
+    --primary-color: #38bdf8;
+    --primary-hover: #0ea5e9;
+    --bubble-user: #1e293b;
+    --bubble-ai: #1e293b;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Customização de Layout e Navbar */
+.modern-navbar {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    height: 70px;
+    z-index: 1030;
+}
+
+.text-dark-blue {
+    color: var(--dark-blue) !important;
+}
+
+.main-wrapper {
+    height: calc(100vh - 70px);
+}
+
+.h-100-container {
+    height: calc(100vh - 120px);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow-md);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.info-card {
+    max-height: 320px;
+}
+
+/* Elementos de Identidade Visual e Avatares */
+.avatar-ai-large {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    box-shadow: 0 8px 16px rgba(2, 132, 199, 0.2);
+}
+
+.avatar-ai-small, .avatar-user-small {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.avatar-ai-small {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+}
+
+.avatar-user-small {
+    background: #cbd5e1;
+    color: #334155;
+}
+
+/* Botões Modernos e Ícones */
+.btn-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    background: var(--border-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Cards de Ações Rápidas */
+.quick-action-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quick-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.quick-action-card span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Chat Engine UI */
+.chat-interface-container {
+    height: 100%;
+    overflow: hidden;
+}
+
+.chat-body {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: rgba(248, 250, 252, 0.3);
+}
+
+[data-bs-theme="dark"] .chat-body {
+    background: rgba(15, 23, 42, 0.2);
+}
+
+.chat-message-wrapper {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 80%;
+    align-items: flex-start;
+}
+
+.chat-message-wrapper.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.chat-message-wrapper.ai {
+    align-self: flex-start;
+}
+
+.message-bubble {
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.chat-message-wrapper.user .message-bubble {
+    background-color: var(--bubble-user);
+    color: #0f172a;
+    border-top-right-radius: 4px;
+}
+
+[data-bs-theme="dark"] .chat-message-wrapper.user .message-bubble {
+    color: #f8fafc;
+}
+
+.chat-message-wrapper.ai .message-bubble {
+    background-color: var(--bubble-ai);
+    color: var(--text-primary);
+    border-top-left-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.message-time {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    display: block;
+    text-align: right;
+}
+
+.chat-message-wrapper.user .message-time {
+    text-align: left;
+}
+
+/* Controle de Voz na Bolha da IA */
+.bubble-voice-controls {
+    display: flex;
+    gap: 5px;
+    margin-top: 6px;
+    justify-content: flex-end;
+}
+
+.btn-bubble-voice {
+    background: transparent;
+    border: none;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-bubble-voice:hover {
+    background: var(--border-color);
+    color: var(--primary-color);
+}
+
+/* Caixa de Texto Inferior */
+.modern-input {
+    border-radius: 24px;
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+.modern-input:focus {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.btn-input-action {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    transition: all 0.2s;
+}
+
+.btn-input-action:hover {
+    background: var(--border-color);
+    transform: scale(1.05);
+}
+
+.btn-input-action.active-mic {
+    background: #ef4444 !important;
+    border-color: #ef4444 !important;
+    animation: pulseMic 1.5s infinite;
+}
+
+.btn-input-action.active-mic i {
+    color: #ffffff !important;
+}
+
+.btn-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    border: none;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    transition: all 0.2s;
+}
+
+.btn-send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(2, 132, 199, 0.45);
+}
+
+/* Modais Customizados */
+.custom-modal {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+}
+
+.custom-modal input, .custom-modal select {
+    border-radius: 10px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.custom-modal input:focus, .custom-modal select:focus {
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+/* Customização Responsiva de Scroll */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+@media(max-width: 991.98s) {
+    .main-wrapper { height: auto; }
+    .h-100-container { height: 600px; }
+    .info-card { max-height: none; }
+}
